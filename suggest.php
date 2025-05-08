@@ -4,7 +4,7 @@ $apiKey = 'XXXY';
 
 // Take the json input (user + activities)
 $data = json_decode(file_get_contents("php://input"), true);
-if (!$data || !isset($data['user']) || !isset($data['activities'])) {
+if (!$data || !isset($data['user']) || !isset($data['activities_it']) || !isset($data['activities_en'])) {
   http_response_code(400);
   echo json_encode(["error" => "Missing data in the body"]);
   exit;
@@ -12,10 +12,12 @@ if (!$data || !isset($data['user']) || !isset($data['activities'])) {
 
 // Serialize user and activities for the prompt
 $user = json_encode($data['user'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-$activities = json_encode($data['activities'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+$activities_en = json_encode($data['activities_it'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+$activities_en = json_encode($data['activities_en'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 echo($user);
-echo($activities);
+echo($activities_it);
+echo($activities_en);
 
 //here the "prompt v2" revisited
 $prompt = <<<PROMPT
