@@ -56,7 +56,7 @@
     <h1>Personalized Activity Suggestion</h1>
 
     <label for="userId">Insert your ID (number):</label>
-    <input type="number" id="userId" value="1262" required>
+    <input type="number" id="userId" required>
     <button onclick="getSuggestion()">Get Recomandation</button>
 
     <div id="result" style="margin-top: 20px;"></div>
@@ -118,7 +118,7 @@
 
 		//debug purpose and to print it in the "Log" div
         logTo("\nData received from proxy (user):", userData);
-        logTo("\nReceived Activities:", activities);
+        //logTo("\nReceived Activities:", activities);
 
 		//launching a request by sending "userData" and "activities", then there it'll be sent via an API to GPT with "prompt v2"
         const response = await fetch("suggest.php", {
@@ -133,7 +133,7 @@
         const responseText = await response.text();//waiting for the response
         
         //debug purpose and to print it in the "Log" div
-        logTo("\nServer Response:", responseText);
+        //logTo("\nServer Response:", responseText);
 
         let jsonResponse;
         try {
@@ -166,7 +166,7 @@
           document.getElementById("result").innerHTML =
             `<p><strong>${jsonResponse.title}</strong><br><a href="${jsonResponse.url}" target="_blank">${jsonResponse.url}</a></p>`;
         } else {
-          document.getElementById("result").innerText = "None suggestion found.";
+          document.getElementById("result").innerText = "No suggestion found.";
         }
 
       } catch (error) {
@@ -177,4 +177,3 @@
   </script>
 </body>
 </html>
-
