@@ -20,8 +20,9 @@ echo($activities);
 //here the "prompt v2" revisited
 $prompt = <<<PROMPT
 Context:
-User data: $user
-Activities: $activities
+User ID: $user
+Attività in italiano: $activities_it
+Attività in inglese: $activities_en
 
 **Prompt dettagliato per AI – StandByMe e il sistema di selezione dei giochi** StandByMe è un progetto educativo innovativo che utilizza una piattaforma interattiva basata su giochi digitali per sensibilizzare e formare gli utenti su **tematiche legate alla violenza di genere, al consenso, agli stereotipi e alle dinamiche sociali che influenzano i comportamenti legati alla discriminazione e alla parit`a di genere**. 
 L’obiettivo della piattaforma è **creare un percorso di apprendimento altamente personalizzato**, in cui ogni utente non sceglie liberamente i giochi da svolgere, ma viene guidato attraverso un **sistema di raccomandazione AI**, che seleziona il prossimo gioco sulla base di **interessi dichiarati, competenze misurate e performance ottenute nei giochi precedenti**.
@@ -41,6 +42,9 @@ Tu utilizzi questi dati per proporre il gioco pi`u adatto a migliorare le compet
 
 Il vostro compito è quello di fornire agli utenti suggerimenti della attività personalizzata incentrata su argomenti di genere.
 Assicuratevi che la risposta sia: 
+- NON devi MAI vedere altri profili e quindi basarti solamente sui dati in $user e $activities_it e $activities_en e non vedere altri profili.
+- Assicurarsi che NESSUNA attività venga ripetuta se precedentemente completata con successo (punteggio superiore a 0.60). Quindi se una attività è stata fatta in modo sufficiente, allora NON devi raccomandarla mai più.
+- Assicurarsi che NON vengano suggerite attività equivalenti di traduzione, ovvero se unu utente ha fatto una attività in italiano allora non dovrai MAI la sua corrispettiva attività in altre lingue
 - Su misura per le preferenze dell’utente: Considerare le parole chiave e gli interessi specificati dall’utente. 
 - Tenete conto delle attivit`a completate in passato e dei punteggi ottenuti. Raccomandazioni diversificate e coinvolgenti: Includere una variet`a di tipi di attivit`a, come giochi interattivi, risorse educative e discussioni.
 Puntate a introdurre nuove metodologie e stili di apprendimento. Motivazione pertinente: Fornire una breve spiegazione di come ogni attivit`a suggerita si collega agli obiettivi o alle preoccupazioni dell’utente. Incoraggiare il pensiero critico e la consapevolezza delle questioni di genere. Apprendimento progressivo: Assicurarsi che nessuna attivit`a venga ripetuta
@@ -48,10 +52,10 @@ se precedentemente completata con successo (punteggio superiore a 0.6). Adattare
 
 **Catalogo completo dei giochi disponibili** All’interno della piattaforma, sono presenti una serie di giochi che coprono diverse sfaccettature del problema della violenza di genere e delle dinamiche relazionali. Ogni gioco si concentra su aspetti specifici e contribuisce a sviluppare una o pi`u delle tre competenze chiave.
 
-Ecco **l’elenco completo di tutti i giochi** presenti nella piattaforma **StandByMe**, con una breve descrizione per ciascuno. **Lista completa dei giochi StandByMe** è disponibile in $activities
+Ecco **l’elenco completo di tutti i giochi** presenti nella piattaforma **StandByMe**, con una breve descrizione per ciascuno. **Lista completa dei giochi StandByMe** è disponibile in $activities_it e $activities_en
 
-
-**Struttura del prompt per l’AI** **Contesto:** - **StandByMe `e una piattaforma educativa che utilizza giochi interattivi per sensibilizzare sulla violenza di genere, il consenso e
+**Struttura del prompt per l’AI** 
+**Contesto:** - **StandByMe `e una piattaforma educativa che utilizza giochi interattivi per sensibilizzare sulla violenza di genere, il consenso e
 gli stereotipi di genere.** - **L’utente ha dichiarato di essere interessato a:** temi di interesse dichiarati. - **Storico dei giochi svolti e performance:** elenco giochi + punteggi ottenuti.
 **Richiesta e Istruzioni:** ”Sulla base delle informazioni sopra, quale gioco `e il pi`u adatto per migliorare le competenze in cui l’utente `e carente, garantendo una progressione
 efficace? Considera anche gli interessi dichiarati dall’utente e il livello di difficolt`a adeguato. Se esistono pi`u opzioni, proponi la migliore motivando la scelta.” Con questo prompt, l’AI (dovrebbe essere) in grado di determinare dinamicamente il percorso formativo migliore per ogni utente, garantendo un apprendimento personalizzato e progressivo.** 
@@ -59,7 +63,7 @@ efficace? Considera anche gli interessi dichiarati dall’utente e il livello di
 Quindi te sei una esperta che vuole far insegnare allu studentu. Come unico output dovrai dire il nome del prossimo quiz adatto e quindi riportare dal suo campo "post_title" e anche il suo "url", secondo le tue analisi.
 Devi esclusivamente prendere il testo che ricevi in input in $user, e dare in output il prossimo miglior quiz sulla base di quello che ti ha detto l’utente che vuole imparare e dello storico dei quiz fatti con una spiegazione. 
 
-NON devi dare altro in output. Fornisci il gioco successivo pi`u pertinente in base ai punteggi recenti e agli argomenti di interesse espressi dall’utente
+NON devi dare altro in output. Fornisci il gioco successivo pi`u pertinente in base ai punteggi recenti e agli argomenti di interesse espressi dall’utente.
 Opzioni per risposte ambigue: In caso ci siano pi`u giochi che possono essere pertinenti, fai un elenco di essi dal ”migliore” al meno migliore ma comunque una scelta contenuta. Per ”migliore” si intende compensare le carenze emerse nei giochi precedenti, quelle pi`u gravi tra le presenti, o se non c’`e ancora nessun gioco allora dare massima importanza agli interessi dellu utente riportarti.
 Respond ONLY in JSON format like:
 {
@@ -100,7 +104,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
   "messages" => [
     ["role" => "user", "content" => $prompt]
   ],
-  "temperature" => 1
+  "temperature" => 0
 ]));
 
 $response = curl_exec($ch);
