@@ -104,21 +104,24 @@
 		//we'll use a proxy because I've found that trying to web-scrapting the following file wasn't allowed
         //so mitigating that with a third-part access via a proxy
       const userUrl = `proxy.php?url=https://standbymeplatform.eu/wp-json/wp/v2/get_user_data?user_id=${userId}`;
-      const activityUrl = `proxy.php?url=https://standbymeplatform.eu/wp-json/wp/v2/activities?language=it`;
+      const activityUrl_it = `proxy.php?url=https://standbymeplatform.eu/wp-json/wp/v2/activities?language=it`;
+      const activityUrl_en = `proxy.php?url=https://standbymeplatform.eu/wp-json/wp/v2/activities?language=en`;
 
       try {
-        const [userRes, actRes] = await Promise.all([//launching a promise to get the data
+        const [userRes, actRes_it, actRes_en] = await Promise.all([//launching a promise to get the data
           fetch(userUrl),
-          fetch(activityUrl)
+          fetch(activityUrl_it),
+          fetch(activityUrl_en)
         ]);
 
 		//waiting to get the responses
         const userData = await userRes.json();
-        const activities = await actRes.json();
+        const activities_it = await actRes_it.json();
+        const activities_en = await actRes_en.json();
 
 		//debug purpose and to print it in the "Log" div
         logTo("\nData received from proxy (user):", userData);
-        //logTo("\nReceived Activities:", activities);
+        //logTo("\nReceived Activities:", activities_it);
 
 		//launching a request by sending "userData" and "activities", then there it'll be sent via an API to GPT with "prompt v2"
         const response = await fetch("suggest.php", {
@@ -126,7 +129,8 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             user: userData,
-            activities: activities
+            activities_it: activities_it,
+            activities_en: activities_en
           })
         });
 
