@@ -151,7 +151,7 @@
             .replace(/""/g, '"');
 
 			//debug purpose and to print it in the "Log" div
-          logTo("\ncleanedJson:", cleanedJson);
+          //logTo("\ncleanedJson:", cleanedJson);
 
           jsonResponse = JSON.parse(cleanedJson);
           
@@ -166,9 +166,13 @@
         
         hideLoading();//for UI purpose
 
-        if (jsonResponse && jsonResponse.title && jsonResponse.url) {
+        if (jsonResponse && jsonResponse.title && jsonResponse.url && jsonResponse.reason) {
           document.getElementById("result").innerHTML =
-            `<p><strong>${jsonResponse.title}</strong><br><a href="${jsonResponse.url}" target="_blank">${jsonResponse.url}</a></p>`;
+            `<p><strong>${jsonResponse.title}</strong><br>
+            <a href="${jsonResponse.url}" target="_blank">${jsonResponse.url}</a>
+            <br><br><strong>Explanation:</strong><br>
+            ${jsonResponse.reason}
+            </p>`;
         } else {
           document.getElementById("result").innerText = "No suggestion found.";
         }
