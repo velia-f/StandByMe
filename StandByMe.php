@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>StandByMe – SLPtPLP</title>
+  <style>
+    body {
+      display: flex;
+      font-family: sans-serif;
+      margin: 0;
+      height: 100vh;
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 20px;
+      text-align: center;
+      background: #ddd;
+      margin-top: 20px;
+    }
+
+    .left {
+      flex: 1;
+      padding: 20px;
+      border-right: 2px solid #ccc;
+    }
+
+    .right {
+      flex: 1;
+      padding: 20px;
+      background-color: #f9f9f9;
+      overflow-y: auto;
+      font-size: 0.9em;
+      color: #333;
+    }
+
+    #log {
+      white-space: pre-wrap;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      max-height: 90%;
+      overflow-y: auto;
+    }
+
+    .log-label {
+      color: red;
+      font-weight: bold;
+    }
+
+    input, button {
+      font-size: 1em;
+      padding: 5px;
+    }
+
+    button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+<?php include "../navbar.php"; ?>
+  <div class="left">
+  <br>
+    <h1>Personalized Activity Suggestion</h1>
+
+    <label for="userId">Insert your ID (number):</label>
+    <input type="number" id="userId" required>
+    <button onclick="getSuggestion()">Get Recomandation</button>
+
+    <div id="result" style="margin-top: 20px;"></div>
+    <div id="loading" style="display:none; margin-top: 10px; color: #666; font-style: italic;">
+  		⏳ Loading...
+	</div>
+
+  </div>
+
+  <div class="right">
+  <br>
+    <h2>Log</h2>
+    <div id="log"></div>
+  </div>
+
+  <script>
+  //for pretty-printing in the Front-End, instead of opening the console
+    function logTo(label, data) {
+      const log = document.getElementById("log");
+      const entry = document.createElement("div");
+
+      entry.innerHTML = `<span class="log-label">${label}</span> ${typeof data === "object" ? JSON.stringify(data, null, 2) : data}`;
+      log.appendChild(entry);
+    }
+    
+    function showLoading() {
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("result").innerHTML = "";
+    }
+
+    function hideLoading() {
+      document.getElementById("loading").style.display = "none";
+    }
+    
+    
+
+    async function getSuggestion() {
+      const userId = document.getElementById("userId").value;
+      if (!userId) {
+        alert("Please insert a valid ID");
+        return;
+      }
+      
+      showLoading();//for UI purpose
+
+		//we'll use a proxy because I've found that trying to web-scrapting the following file wasn't allowed
+        //so mitigating that with a third-part access via a proxy
+      const userUrl = `proxy.php?url=https://standbymeplatform.eu/wp-json/wp/v2/get_user_data?user_id=${userId}`;
+      const activityUrl_it = `proxy.php?url=https://standbymeplatform.eu/wp-json/wp/v2/activities?language=it`;
+      const activityUrl_en = `proxy.php?url=https://standbymeplatform.eu/wp-json/wp/v2/activities?language=en`;
+
+      try {
+        const [userRes, actRes_it, actRes_en] = await Promise.all([//launching a promise to get the data
+          fetch(userUrl),
+          fetch(activityUrl_it),
+          fetch(activityUrl_en)
+        ]);
+
+		//waiting to get the responses
+        const userData = await userRes.json();
+        const activities_it = await actRes_it.json();
+        const activities_en = await actRes_en.json();
+
+		//debug purpose and to print it in the "Log" div
+        logTo("\nData received from proxy (user):", userData);
+        //logTo("\nReceived Activities:", activities_it);
+
+		//launching a request by sending "userData" and "activities", then there it'll be sent via an API to GPT with "prompt v2"
+        const response = await fetch("suggest.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user: userData,
+            activities_it: activities_it,
+            activities_en: activities_en
+          })
+        });
+
+        const responseText = await response.text();//waiting for the response
+        
+        //debug purpose and to print it in the "Log" div
+        //logTo("\nServer Response:", responseText);
+
+        let jsonResponse;
+        try {
+        	//just to cut and extract only the last section of the all json-like text
+          const finalPart = responseText.substring(responseText.lastIndexOf("]") + 1).trim();
+
+          const cleanedJson = finalPart
+            .replace(/^"+|"+$/g, '')
+            .replace(/\\"/g, '"')
+            .replace(/\\\//g, '/')
+            .replace(/""/g, '"');
+
+			//debug purpose and to print it in the "Log" div
+          //logTo("\ncleanedJson:", cleanedJson);
+
+          jsonResponse = JSON.parse(cleanedJson);
+          
+          //debug purpose and to print it in the "Log" div
+          logTo("\nCorrect JSON data:", jsonResponse);
+        } catch (error) {
+          //console.error("\nError in parsing the response:", error);
+          logTo("\nError in parsing the response:", error);//debug purpose and to print it in the "Log" div
+          document.getElementById("result").innerText = "Error in the server response format.";
+          return;
+        }
+        
+        hideLoading();//for UI purpose
+
+        if (jsonResponse && jsonResponse.title && jsonResponse.url && jsonResponse.reason) {
+          document.getElementById("result").innerHTML =
+            `<p><strong>${jsonResponse.title}</strong><br>
+            <a href="${jsonResponse.url}" target="_blank">${jsonResponse.url}</a>
+            <br><br><strong>Explanation:</strong><br>
+            ${jsonResponse.reason}
+            </p>`;
+        } else {
+          document.getElementById("result").innerText = "No suggestion found.";
+        }
+
+      } catch (error) {
+        console.error("\nErrore:", error);
+        document.getElementById("result").innerText = "An unknown error occurred.";
+      }
+    }
+  </script>
+</body>
+</html>
