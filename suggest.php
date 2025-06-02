@@ -1,10 +1,6 @@
 <?php
-//private key to FBK OpenAI access 
-$apiKey = 'XXXY';
-
-// Take the json input (user + activities)
 $data = json_decode(file_get_contents("php://input"), true);
-if (!$data || !isset($data['user']) || !isset($data['activities_it']) || !isset($data['activities_en'])) {
+if (!$data || !isset($data['user']) || !isset($data['activities_it'])) {
   http_response_code(400);
   echo json_encode(["error" => "Missing data in the body"]);
   exit;
@@ -13,18 +9,18 @@ if (!$data || !isset($data['user']) || !isset($data['activities_it']) || !isset(
 // Serialize user and activities for the prompt
 $user = json_encode($data['user'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 $activities_it = json_encode($data['activities_it'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-$activities_en = json_encode($data['activities_en'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+//private key to FBK OpenAI access 
+$apiKey = 'XXXY';
 
 echo($user);
 echo($activities_it);
-echo($activities_en);
 
 //here the "prompt v2" revisited
 $prompt = <<<PROMPT
 Context:
 User ID: $user
 Activities in Italian: $activities_it
-Activities in english: $activities_en
 
 **Detailed Prompt for AI - StandByMe and the game selection system** StandByMe is an innovative educational project that uses an interactive platform based on digital games to raise awareness and educate users on **issues related to gender violence, consent, stereotypes and social dynamics that influence behaviors related to discrimination and gender equality**. 
 The goal of the platform is **to create a highly personalized learning pathway**, in which each user does not freely choose the games to play, but is guided through an **AI recommendation system**, which selects the next game based on **stated interests, measured skills, and performance in previous games**.
@@ -42,19 +38,30 @@ Unlike other gamified educational platforms, StandByMe **does not allow users to
 
 You use this data to propose the most appropriate game to improve missing skills, ensuring that each user has a **personalized, targeted and adaptive path**.
 
-Your task is to provide users with suggestions of the personalized activity focused on gender topics.
-Make sure the answer is: 
-- You should NEVER see other profiles and therefore rely only on the data in $user and $activities_it and $activities_en and see no other profiles.
+Your task is to provide users with suggestions of the personalized activity focused on gender topics, and to take it twice.
+You have to give a personalized suggestion and a random one.
+
+Make sure the answer for the personalized suggestion is such that: 
+- You should NEVER see other profiles and therefore rely only on the data in $user and $activities_it and see no other profiles.
 - Make sure that NO activity is repeated if previously completed successfully (score above 0.60). So if an activity has been done sufficiently, then you should NOT recommend it ever again.
-- Ensure that equivalent translation activities are NOT suggested, i.e., if au user has done an activity in Italian then you should NEVER its corresponding activity in other languages
 - Tailor to user preferences: Consider the keywords and interests specified by the user. 
 - Take into account activities completed in the past and scores obtained. Diverse and engaging recommendations: Include a variety of activity types, such as interactive games, educational resources, and discussions.
 Aim to introduce new methodologies and learning styles. Relevant rationale: Provide a brief explanation of how each suggested activity relates to the user's goals or concerns. Encourage critical thinking and awareness of gender issues. Progressive learning: Ensure that no activity is repeated
 if previously completed successfully (score above 0.6). Adjust prompts based on user feedback or evolving needs. Critical engagement: Allow users to challenge stereotypes and misconceptions through fact-based resources.
 
+Make sure the answer for the random suggestion is such that: 
+- You should NEVER see other profiles and therefore rely only on the data in $user and $activities_it and see no other profiles.
+- Make sure that NO activity is repeated if previously completed successfully (score above 0.60). So if an activity has been done sufficiently, then you should NOT recommend it ever again.
+- You DON'T have to tailor to user preferences, so DO NOT consider into your proposal user's preferences.
+- Take into account activities completed in the past. And do not repropose the same completed in the past.
+- NOT propose the same you will provide for the "personalized suggestion".
+- so truly random except for: no re-propose the one said in "personalized suggestion", no consideration of their preferences, and re-propose of activities made and present in their history.
+Relevant rationale: Provide a brief explanation of how each suggested activity relates to the user's goals or concerns. Encourage critical thinking and awareness of gender issues. Progressive learning: Ensure that no activity is repeated
+if previously completed successfully (score above 0.6). Adjust prompts based on user feedback or evolving needs. Critical engagement: Allow users to challenge stereotypes and misconceptions through fact-based resources.
+
 **Full catalog of available games** Within the platform, there are a number of games that cover different facets of the problem of gender-based violence and relationship dynamics. Each game focuses on specific aspects and helps develop one or more of the three key competencies.
 
-Here is **the complete list of all games** on the **StandByMe** platform, with a brief description for each. **Complete list of StandByMe games** is available in $activities_en and $activities_en.
+Here is **the complete list of all games** on the **StandByMe** platform, with a brief description for each. **Complete list of StandByMe games** is available and $activities_it.
 
 **Prompt structure for the AI**. 
 **Background:** - **StandByMe is an educational platform that uses interactive games to raise awareness about gender-based violence, consent, and
@@ -62,18 +69,22 @@ gender stereotypes.** - **User stated interest in:**Stated topics of interest. -
 **Request and Instructions:** “Based on the information above, which game is best suited to improve the skills in which the user is lacking, ensuring progression
 effective? Also consider the user's stated interests and appropriate level of difficulty. If there are multiple options, propose the best one giving reasons for the choice.” With this prompt, the AI (should be) able to dynamically determine the best training path for each user, ensuring personalized and progressive learning.** 
 
-So you are an expert who wants to have allu studentu teach. As the only output you will have to say the name of the next suitable quiz and then report from its “post_title” field and also its “url,” according to your analysis.
-You only have to take the text you receive as input in $user, and output the next best quiz based on what the user told you he wants to learn and the history of quizzes taken with an explanation. 
+So you are an expert who wants to teach at students. As the only output you will have to say the name of the next suitable activity and then report from its “post_title” field and also its “url,” according to your analysis.
+You only have to take the text you receive as input in $user, and output the next best activity based on what the user told you he wants to learn and the history of activities taken with an explanation. 
 
 You do NOT have to give anything else in output. Give the next most relevant game based on recent scores and topics of interest expressed by the user.
 Options for ambiguous answers: In case there are multiple games that may be relevant, make a list of them from “best” to least best but still a contained choice. By “best” you mean compensate for the shortcomings revealed in the previous games, the most serious ones among the present ones, or if there is no game yet then give utmost importance to the interests of the user report you.
 Respond ONLY in JSON format like:
 {
-  “title": ‘activity_name’,
-  “url": ”XXX”,
-  "reason": "YYY"
+  "title_1": "activity_name_1",
+  "url_1": "XXX_1",
+  "reason_1": "YYY_1",
+  "title_2": "activity_name_2",
+  "url_2": "XXX_2",
+  "reason_2": "YYY_2"
 }
 such that: activity_name is “post_title” present in the JSON file with all the activities, and XXX is the “url” taken from the same file, and YYY is includes a short explanation for your suggestion to be shown to the user. For example, a message like: “Great job! Now you can try this activity {activity_name}. It focuses on [topic] and can help you explore [reason]...”
+“title_1": ‘activity_name_1’, “url_1": ”XXX_1”, "reason_1": "YYY_1" are for the personalized suggestion, meanwhile “title_2": ‘activity_name_2’, “url_2": ”XXX_2”, "reason_2": "YYY_2" are for the random one. BOTH "reason" has to be in Italian
 Reply **exclusively** in **pure JSON**, without additional text, explanations or comments. The response must start directly with a `{` and contain only “title” and “url” keys.
 PROMPT;
 
