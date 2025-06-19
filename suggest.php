@@ -6,12 +6,19 @@ if (!$data || !isset($data['user']) || !isset($data['activities_it'])) {
   exit;
 }
 
+if (!isset($data['user']['completed_activities']) || !is_array($data['user']['completed_activities'])) {
+    $data['user']['completed_activities'] = [];
+}
+
 // Serialize user and activities for the prompt
-$user = json_encode($data['user'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-$activities_it = json_encode($data['activities_it'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+//$user = json_encode($data['user'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+//$activities_it = json_encode($data['activities_it'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+$user = json_encode($data['user'], JSON_UNESCAPED_UNICODE);
+$activities_it = json_encode($data['activities_it'], JSON_UNESCAPED_UNICODE);
+
 
 //private key to FBK OpenAI access 
-$apiKey = 'XXXY';
+$apiKey = 'LOL';
 
 echo($user);
 echo($activities_it);
@@ -72,6 +79,10 @@ effective? Also consider the user's stated interests and appropriate level of di
 So you are an expert who wants to teach at students. As the only output you will have to say the name of the next suitable activity and then report from its “post_title” field and also its “url,” according to your analysis.
 You only have to take the text you receive as input in $user, and output the next best activity based on what the user told you he wants to learn and the history of activities taken with an explanation. 
 
+You will find in the user profile the section: "completed_activities": [], which it may be emphty like in this example. So, you still have to provide the next best game ONLY based on user's preferences.
+IF "completed_activities" is not emphty, then use the contents to recommend the next best game.
+NEVER recommend anything. At least something if "completed_activities" is emphty.
+
 You do NOT have to give anything else in output. Give the next most relevant game based on recent scores and topics of interest expressed by the user.
 Options for ambiguous answers: In case there are multiple games that may be relevant, make a list of them from “best” to least best but still a contained choice. By “best” you mean compensate for the shortcomings revealed in the previous games, the most serious ones among the present ones, or if there is no game yet then give utmost importance to the interests of the user report you.
 Respond ONLY in JSON format like:
@@ -79,12 +90,14 @@ Respond ONLY in JSON format like:
   "title_1": "activity_name_1",
   "url_1": "XXX_1",
   "reason_1": "YYY_1",
+  "description_1": "desc_1",
   "title_2": "activity_name_2",
   "url_2": "XXX_2",
-  "reason_2": "YYY_2"
+  "reason_2": "YYY_2",
+  "description_2": "desc_2"
 }
 such that: activity_name is “post_title” present in the JSON file with all the activities, and XXX is the “url” taken from the same file, and YYY is includes a short explanation for your suggestion to be shown to the user. For example, a message like: “Great job! Now you can try this activity {activity_name}. It focuses on [topic] and can help you explore [reason]...”
-“title_1": ‘activity_name_1’, “url_1": ”XXX_1”, "reason_1": "YYY_1" are for the personalized suggestion, meanwhile “title_2": ‘activity_name_2’, “url_2": ”XXX_2”, "reason_2": "YYY_2" are for the random one. BOTH "reason" has to be in Italian
+“title_1": ‘activity_name_1’, “url_1": ”XXX_1”, "reason_1": "YYY_1" are for the personalized suggestion, meanwhile “title_2": ‘activity_name_2’, “url_2": ”XXX_2”, "reason_2": "YYY_2" are for the random one. Meanwhile with "description_1/2": "desc_1/2" you have to insert its description. BOTH "reason" has to be in Italian
 Reply **exclusively** in **pure JSON**, without additional text, explanations or comments. The response must start directly with a `{` and contain only “title” and “url” keys.
 PROMPT;
 
