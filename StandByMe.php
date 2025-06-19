@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['CONTENT_TYPE']) &&
     
     echo "User ID: $preUserIdQuestinnaire";
     
-    $campi = ["pq1", "pq2", "pq31", "pq32", "pq33", "pq34", "pq35", "pq36", "pq41", "pq42", "pq43"];
+    $campi = ["pq11", "pq12", "pq13", "pq14", "pq15", "pq16", "pq2", "pq3", "pq4", "pq5"];
     $risposte = [];
 
     foreach ($campi as $campo) {
@@ -70,11 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['CONTENT_TYPE']) &&
       }
     }
     
-    $open1 = isset($data["pq5"]) ? trim($data["pq5"]) : "";
-    $open2 = isset($data["pq6"]) ? trim($data["pq6"]) : "";
-    $open1 = filter_var($open1, FILTER_SANITIZE_STRING);
-    $open2 = filter_var($open2, FILTER_SANITIZE_STRING);
-    $final_text = implode("-", $risposte) . "-" . $open1 . "-" . $open2;
+    //$open1 = isset($data["pq5"]) ? trim($data["pq5"]) : "";
+    //$open2 = isset($data["pq6"]) ? trim($data["pq6"]) : "";
+    //$open1 = filter_var($open1, FILTER_SANITIZE_STRING);
+    //$open2 = filter_var($open2, FILTER_SANITIZE_STRING);
+    $final_text = implode("-", $risposte); //. "-" . $open1 . "-" . $open2;
     echo "Final text: $final_text";
 
     try {
@@ -108,7 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['CONTENT_TYPE']) &&
     
     echo "Post User ID: $postUserIdQuestinnaire";
     
-    $campi = ["poq1", "poq2", "poq31", "poq32", "poq33", "poq34", "poq35", "poq36", "poq41", "poq42", "poq43"];
+    $campi = ["poq11", "poq12", "poq13", "poq14", "poq15", "poq21", "poq22", "poq23", "poq24", "poq25", "poq26", "poq3", "poq4", "poq5", "poq6"];
+    //$campi = ["poq1", "poq2", "poq31", "poq32", "poq33", "poq34", "poq35", "poq36", "poq41", "poq42", "poq43"];
     $risposte = [];
 
     foreach ($campi as $campo) {
@@ -119,11 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['CONTENT_TYPE']) &&
       }
     }
     
-    $open1 = isset($data["poq5"]) ? trim($data["poq5"]) : "";
-    $open2 = isset($data["poq6"]) ? trim($data["poq6"]) : "";
-    $open1 = filter_var($open1, FILTER_SANITIZE_STRING);
-    $open2 = filter_var($open2, FILTER_SANITIZE_STRING);
-    $final_text = implode("-", $risposte) . "-" . $open1 . "-" . $open2;
+    //$open1 = isset($data["poq5"]) ? trim($data["poq5"]) : "";
+    //$open2 = isset($data["poq6"]) ? trim($data["poq6"]) : "";
+    //$open1 = filter_var($open1, FILTER_SANITIZE_STRING);
+    //$open2 = filter_var($open2, FILTER_SANITIZE_STRING);
+    $final_text = implode("-", $risposte);// . "-" . $open1 . "-" . $open2;
     echo "Post Final text: $final_text";
 
     try {
@@ -160,7 +161,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     echo "User ID: $preUserIdQuestinnaire";
     
-    $campi = ["pq1", "pq2", "pq31", "pq32", "pq33", "pq34", "pq35", "pq36", "pq41", "pq42", "pq43"];
+    //$campi = ["pq1", "pq2", "pq31", "pq32", "pq33", "pq34", "pq35", "pq36", "pq41", "pq42", "pq43"];
+    $campi = ["pq11", "pq12", "pq13", "pq14", "pq15", "pq16", "pq2", "pq3", "pq4", "pq5"];
     $risposte = [];
 
     foreach ($campi as $campo) {
@@ -171,11 +173,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
     
-    $open1 = isset($_POST["pq5"]) ? trim($_POST["pq5"]) : "";
-    $open2 = isset($_POST["pq6"]) ? trim($_POST["pq6"]) : "";
-    $open1 = filter_var($open1, FILTER_SANITIZE_STRING);
-    $open2 = filter_var($open2, FILTER_SANITIZE_STRING);
-    $final_text = implode("-", $risposte) . "-" . $open1 . "-" . $open2;
+    //$open1 = isset($_POST["pq5"]) ? trim($_POST["pq5"]) : "";
+    //$open2 = isset($_POST["pq6"]) ? trim($_POST["pq6"]) : "";
+    //$open1 = filter_var($open1, FILTER_SANITIZE_STRING);
+    //$open2 = filter_var($open2, FILTER_SANITIZE_STRING);
+    $final_text = implode("-", $risposte); // . "-" . $open1 . "-" . $open2;
     echo "Final text: $final_text";
 
     try {
@@ -199,7 +201,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     echo "Post User ID: $postUserIdQuestinnaire";
     
-    $campi = ["poq1", "poq2", "poq31", "poq32", "poq33", "poq34", "poq35", "poq36", "poq41", "poq42", "poq43"];
+    //$campi = ["poq1", "poq2", "poq31", "poq32", "poq33", "poq34", "poq35", "poq36", "poq41", "poq42", "poq43"];
+    $campi = ["poq11", "poq12", "poq13", "poq14", "poq15", "poq21", "poq22", "poq23", "poq24", "poq25", "poq26", "poq3", "poq4", "poq5", "poq6"];
     $risposte = [];
 
     foreach ($campi as $campo) {
@@ -210,11 +213,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
     
-    $open1 = isset($_POST["poq5"]) ? trim($_POST["poq5"]) : "";
-    $open2 = isset($_POST["poq6"]) ? trim($_POST["poq6"]) : "";
-    $open1 = filter_var($open1, FILTER_SANITIZE_STRING);
-    $open2 = filter_var($open2, FILTER_SANITIZE_STRING);
-    $final_text = implode("-", $risposte) . "-" . $open1 . "-" . $open2;
+    //$open1 = isset($_POST["poq5"]) ? trim($_POST["poq5"]) : "";
+    //$open2 = isset($_POST["poq6"]) ? trim($_POST["poq6"]) : "";
+    //$open1 = filter_var($open1, FILTER_SANITIZE_STRING);
+    //$open2 = filter_var($open2, FILTER_SANITIZE_STRING);
+    $final_text = implode("-", $risposte); // . "-" . $open1 . "-" . $open2;
     echo "Post Final text: $final_text";
 
     try {
@@ -356,13 +359,15 @@ main {
 <?php include "../navbar.php"; ?>
 
 <div class="overlay" id="introOverlay" style="display: flex; font-size: 0.8em;">
-  <h1>Crea un profilo su <a href="https://standbymeplatform.eu/register/" target="_blank">StandByMe</a> e ricorda il tuo Username<br>NON ricaricare mai la pagina, se no dovrai fare tutto da capo</h1>
-  <p>SOLO dopo aver creato il profilo(vedi sopra), scrivi "T" nel campo qui sotto per continuare.</p>
+  <h1>Crea un profilo su <a href="https://standbymeplatform.eu/register/" target="_blank">StandByMe</a> e ricorda il tuo Username.
+  <br>POI vai su <a href="https://standbymeplatform.eu/en/preferences/" target="_blank">Mie Preferenze</a> e rispondi dicendo cosa vorresti imparare e cosa ti interessa.
+  <br>NON ricaricare mai la pagina, se no dovrai fare tutto da capo.</h1>
+  <br><p>SOLO dopo aver creato il profilo(vedi sopra), scrivi "T" nel campo qui sotto per continuare.</p>
   <input id="unlockKey" type="text" placeholder="Scrivi qui la parola segreta per andare avanti...">
 </div>
 
 <div class="yourUsername" id="usernameOverlay" style="display: none; font-size: 0.8em;">
-  <h1>Scrivi il tuo Username:</h1>
+  <h1>Scrivi il tuo Username, cosìm ti diremo il tuo ID che useremo dopo:</h1>
   <input type="text" id="UserIdFromUsername" required style="flex: 1;">
   <button id="yourUsernameButton" onclick="getUserIdFromUsername()" type="submit" style="margin-top: 10px;">Continua</button>
 </div>
@@ -370,160 +375,116 @@ main {
 
 <div class="questionnaire" id="preQuestionnaire" style="display: none; font-family: 'Segoe UI', sans-serif; font-size: 1em; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; margin: auto;">
   <form id="preForm" method="post" style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
-    <h2 style="text-align: center; color: #333;">Pre-Questionario</h2>
+    <h2 style="text-align: center; color: #333;"><br><br>Pre-Questionario</h2>
 
     <div style="display: flex; flex-direction: column;">
       <label for="preUserId" style="margin-bottom: 5px; font-weight: bold;">ID Utente:</label>
       <input type="number" id="preUserIdQuestinnaire" name="preUserIdQuestinnaire" required style="padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
     </div>
-
-    <!-- DOMANDE RADIO -->
+    
+    
     <div>
-      <p style="margin-bottom: 8px;">1) Quanto pensi che questa esperienza ti aiuterà a imparare qualcosa di nuovo? (0-5)</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <label><input type="radio" name="pq1" value="0" required checked> 0</label>
-        <label><input type="radio" name="pq1" value="1"> 1</label>
-        <label><input type="radio" name="pq1" value="2"> 2</label>
-        <label><input type="radio" name="pq1" value="3"> 3</label>
-        <label><input type="radio" name="pq1" value="4"> 4</label>
-        <label><input type="radio" name="pq1" value="5"> 5</label>
-      </div>
+      <p style="margin-bottom: 8px;">
+          Ti chiediamo di rispondere a queste affermazioni utilizzando una scala da 1 a 5, dove 1 = per nulla e 5 = moltissimo
+      </p>
     </div>
 
+    <!-- DOMANDE RADIO -->
+    
     <div>
-      <p style="margin-bottom: 8px;">2) Hai delle aspettative per quello che pensi vedrai od imparerai? (0-5)</p>
+      <p style="margin-bottom: 8px;">1) Penso di conoscere questi argomenti:</p>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <label><input type="radio" name="pq2" value="0" required checked> 0</label>
-        <label><input type="radio" name="pq2" value="1"> 1</label>
-        <label><input type="radio" name="pq2" value="2"> 2</label>
-        <label><input type="radio" name="pq2" value="3"> 3</label>
-        <label><input type="radio" name="pq2" value="4"> 4</label>
-        <label><input type="radio" name="pq2" value="5"> 5</label>
+          <p>Violenza di genere (VG):</p>
+          <label><input type="radio" name="pq11" value="1" required checked> 1</label>
+          <label><input type="radio" name="pq11" value="2"> 2</label>
+          <label><input type="radio" name="pq11" value="3"> 3</label>
+          <label><input type="radio" name="pq11" value="4"> 4</label>
+          <label><input type="radio" name="pq11" value="5"> 5</label>
       </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Violenza di genere online:</p>
+      <label><input type="radio" name="pq12" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq12" value="2"> 2</label>
+      <label><input type="radio" name="pq12" value="3"> 3</label>
+      <label><input type="radio" name="pq12" value="4"> 4</label>
+      <label><input type="radio" name="pq12" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Identità di Genere:</p>
+      <label><input type="radio" name="pq13" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq13" value="2"> 2</label>
+      <label><input type="radio" name="pq13" value="3"> 3</label>
+      <label><input type="radio" name="pq13" value="4"> 4</label>
+      <label><input type="radio" name="pq13" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Stereotipi di Genere:</p>
+      <label><input type="radio" name="pq14" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq14" value="2"> 2</label>
+      <label><input type="radio" name="pq14" value="3"> 3</label>
+      <label><input type="radio" name="pq14" value="4"> 4</label>
+      <label><input type="radio" name="pq14" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Mascolinità Tossica:</p>
+      <label><input type="radio" name="pq15" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq15" value="2"> 2</label>
+      <label><input type="radio" name="pq15" value="3"> 3</label>
+      <label><input type="radio" name="pq15" value="4"> 4</label>
+      <label><input type="radio" name="pq15" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Consenso Affettivo:</p>
+      <label><input type="radio" name="pq16" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq16" value="2"> 2</label>
+      <label><input type="radio" name="pq16" value="3"> 3</label>
+      <label><input type="radio" name="pq16" value="4"> 4</label>
+      <label><input type="radio" name="pq16" value="5"> 5</label>
+    </div>
+  </div>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p style="margin-bottom: 8px;">2) Mi informo e mi aggiorno sui termini e sui concetti legati al tema della violenza di genere.</p>
+      <label><input type="radio" name="pq2" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq2" value="2"> 2</label>
+      <label><input type="radio" name="pq2" value="3"> 3</label>
+      <label><input type="radio" name="pq2" value="4"> 4</label>
+      <label><input type="radio" name="pq2" value="5"> 5</label>
     </div>
 
     <!-- BLOCCO 3 -->
-      <p style="font-weight: bold; margin-bottom: 5px;">3) Quanto senti di saperne dei seguenti argomenti? (0-5)</p>
-    <div>
-    <p>VG (Violenza di Genere):</p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq31" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq31" value="1"> 1</label>
-      <label><input type="radio" name="pq31" value="2"> 2</label>
-      <label><input type="radio" name="pq31" value="3"> 3</label>
-      <label><input type="radio" name="pq31" value="4"> 4</label>
-      <label><input type="radio" name="pq31" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>VG online/offline:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq32" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq32" value="1"> 1</label>
-      <label><input type="radio" name="pq32" value="2"> 2</label>
-      <label><input type="radio" name="pq32" value="3"> 3</label>
-      <label><input type="radio" name="pq32" value="4"> 4</label>
-      <label><input type="radio" name="pq32" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Identità di Genere:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq33" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq33" value="1"> 1</label>
-      <label><input type="radio" name="pq33" value="2"> 2</label>
-      <label><input type="radio" name="pq33" value="3"> 3</label>
-      <label><input type="radio" name="pq33" value="4"> 4</label>
-      <label><input type="radio" name="pq33" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Mascolinità:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq34" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq34" value="1"> 1</label>
-      <label><input type="radio" name="pq34" value="2"> 2</label>
-      <label><input type="radio" name="pq34" value="3"> 3</label>
-      <label><input type="radio" name="pq34" value="4"> 4</label>
-      <label><input type="radio" name="pq34" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Stereotipi:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq35" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq35" value="1"> 1</label>
-      <label><input type="radio" name="pq35" value="2"> 2</label>
-      <label><input type="radio" name="pq35" value="3"> 3</label>
-      <label><input type="radio" name="pq35" value="4"> 4</label>
-      <label><input type="radio" name="pq35" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Consenso:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq36" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq36" value="1"> 1</label>
-      <label><input type="radio" name="pq36" value="2"> 2</label>
-      <label><input type="radio" name="pq36" value="3"> 3</label>
-      <label><input type="radio" name="pq36" value="4"> 4</label>
-      <label><input type="radio" name="pq36" value="5"> 5</label>
-    </div>
+      <p style="font-weight: bold; margin-bottom: 5px;">3) Provo empatia verso le vittime di violenza e cerco di comprenderne le esperienze.</p>
+        <label><input type="radio" name="pq3" value="1" required checked> 1</label>
+        <label><input type="radio" name="pq3" value="2"> 2</label>
+        <label><input type="radio" name="pq3" value="3"> 3</label>
+        <label><input type="radio" name="pq3" value="4"> 4</label>
+        <label><input type="radio" name="pq3" value="5"> 5</label>
     </div>
     
     <!-- BLOCCO 4 -->
-    <p style="margin-bottom: 8px;">4) Quanto senti di capire i seguenti concetti? (0=non se so nulla -> 5=so praticamente tutto)</p>
-    <div>
-      <p>Raising Awareness:</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <label><input type="radio" name="pq41" value="0" required checked> 0</label>
-        <label><input type="radio" name="pq41" value="1"> 1</label>
-        <label><input type="radio" name="pq41" value="2"> 2</label>
-        <label><input type="radio" name="pq41" value="3"> 3</label>
-        <label><input type="radio" name="pq41" value="4"> 4</label>
-        <label><input type="radio" name="pq41" value="5"> 5</label>
-      </div>
-    </div>
-    
-    <div>
-    <p>Empathy:</p>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq42" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq42" value="1"> 1</label>
-      <label><input type="radio" name="pq42" value="2"> 2</label>
-      <label><input type="radio" name="pq42" value="3"> 3</label>
-      <label><input type="radio" name="pq42" value="4"> 4</label>
-      <label><input type="radio" name="pq42" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Action:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="pq43" value="0" required checked> 0</label>
-      <label><input type="radio" name="pq43" value="1"> 1</label>
-      <label><input type="radio" name="pq43" value="2"> 2</label>
-      <label><input type="radio" name="pq43" value="3"> 3</label>
-      <label><input type="radio" name="pq43" value="4"> 4</label>
-      <label><input type="radio" name="pq43" value="5"> 5</label>
-    </div>
+      <p style="margin-bottom: 8px;">4) Partecipo attivamente ad azioni di sensibilizzazione e contrasto.</p>
+      <label><input type="radio" name="pq4" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq4" value="2"> 2</label>
+      <label><input type="radio" name="pq4" value="3"> 3</label>
+      <label><input type="radio" name="pq4" value="4"> 4</label>
+      <label><input type="radio" name="pq4" value="5"> 5</label>
     </div>
 
     <!-- DOMANDA 5 -->
-    <div>
-      <label for="q5" style="display: block; font-weight: bold; margin-bottom: 6px;">5) Come verranno utilizzati questi concetti nel percorso?</label>
-      <textarea name="pq5" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: vertical;" required></textarea>
-    </div>
-    
-    <!-- DOMANDA 6 -->
-    <div>
-      <label for="q6" style="display: block; font-weight: bold; margin-bottom: 6px;">6)Altro? (facoltativo)</label>
-      <textarea name="pq6" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: vertical;"></textarea>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p style="margin-bottom: 8px;">5) Penso che questa esperienza mi aiuterà ad imparare qualcosa di nuovo.</p>
+      <label><input type="radio" name="pq5" value="1" required checked> 1</label>
+      <label><input type="radio" name="pq5" value="2"> 2</label>
+      <label><input type="radio" name="pq5" value="3"> 3</label>
+      <label><input type="radio" name="pq5" value="4"> 4</label>
+      <label><input type="radio" name="pq5" value="5"> 5</label>
     </div>
 
     <!-- BOTTONE -->
@@ -536,11 +497,11 @@ main {
 
 <div class="container" id="mainContent" style="display: none;">
   <div class="left">
-    <h1>Personalized Activity Suggestion</h1>
-    <label for="userId">Insert your ID (number):</label>
+    <h1>Suggerimento Attivtà</h1>
+    <label for="userId">Inserisci il tuo ID (numero):</label>
     <input type="number" id="userId" required>
-    <button onclick="getSuggestion()">Get Recommendation</button>
-    <div id="loading" style="margin-top:10px;display:none;color:#666;font-style:italic;">⏳ Loading...</div>
+    <button onclick="getSuggestion()">Ottieni Raccomandazione</button>
+    <div id="loading" style="margin-top:10px;display:none;color:#666;font-style:italic;">⏳ Caricamento...</div>
     <div id="result"></div>
   </div>
 
@@ -553,160 +514,119 @@ main {
 
 <div class="questionnaire" id="postQuestionnaire" style="display: none; font-family: 'Segoe UI', sans-serif; font-size: 1em; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; margin: auto;">
   <form id="postForm" method="post" style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
-    <h2>Post-Questionario</h2>
+    <h2 style="text-align: center; color: #333;"><br><br>Post-Questionario</h2>
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <label for="preUserId" style="flex: 1;">ID Utente:</label>
       <input type="number" id="postUserIdQuestinnaire" name="postUserIdQuestinnaire" required style="flex: 1;">
     </div>
 
-    <!-- DOMANDE RADIO -->
-    <div>
-      <p style="margin-bottom: 8px;">1) Quanto pensi che questa esperienza ti abbia aiutatu ad imparare qualcosa di nuovo? (0-5)</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <label><input type="radio" name="poq1" value="0" required checked> 0</label>
-        <label><input type="radio" name="poq1" value="1"> 1</label>
-        <label><input type="radio" name="poq1" value="2"> 2</label>
-        <label><input type="radio" name="poq1" value="3"> 3</label>
-        <label><input type="radio" name="poq1" value="4"> 4</label>
-        <label><input type="radio" name="poq1" value="5"> 5</label>
-      </div>
+  <div>
+    <p style="margin-bottom: 8px;">1) Ho trovato le attività/quiz a cui ho partecipato:</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <label><input type="checkbox" name="poq11" value="adatte"> Adatte a me</label>
+      <label><input type="checkbox" name="poq12" value="noiose"> Noiose</label>
+      <label><input type="checkbox" name="poq13" value="divertenti"> Divertenti</label>
+      <label><input type="checkbox" name="poq14" value="ripetitive"> Ripetitive</label>
+      <label><input type="checkbox" name="poq15" value="interessanti"> Interessanti</label>
+    </div>
+  </div>
+
+
+  <div>
+    <p style="margin-bottom: 8px;">2) Ora, penso di conoscere questi argomenti:</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <p>Violenza di genere (VG):</p>
+        <label><input type="radio" name="poq21" value="1" required checked> 1</label>
+        <label><input type="radio" name="poq21" value="2"> 2</label>
+        <label><input type="radio" name="poq21" value="3"> 3</label>
+        <label><input type="radio" name="poq21" value="4"> 4</label>
+        <label><input type="radio" name="poq21" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Violenza di genere online:</p>
+      <label><input type="radio" name="poq22" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq22" value="2"> 2</label>
+      <label><input type="radio" name="poq22" value="3"> 3</label>
+      <label><input type="radio" name="poq22" value="4"> 4</label>
+      <label><input type="radio" name="poq22" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Identità di Genere:</p>
+      <label><input type="radio" name="poq23" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq23" value="2"> 2</label>
+      <label><input type="radio" name="poq23" value="3"> 3</label>
+      <label><input type="radio" name="poq23" value="4"> 4</label>
+      <label><input type="radio" name="poq23" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Stereotipi di Genere:</p>
+      <label><input type="radio" name="poq24" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq24" value="2"> 2</label>
+      <label><input type="radio" name="poq24" value="3"> 3</label>
+      <label><input type="radio" name="poq24" value="4"> 4</label>
+      <label><input type="radio" name="poq24" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Mascolinità Tossica:</p>
+      <label><input type="radio" name="poq25" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq25" value="2"> 2</label>
+      <label><input type="radio" name="poq25" value="3"> 3</label>
+      <label><input type="radio" name="poq25" value="4"> 4</label>
+      <label><input type="radio" name="poq25" value="5"> 5</label>
+    </div>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p>Consenso Affettivo:</p>
+      <label><input type="radio" name="poq26" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq26" value="2"> 2</label>
+      <label><input type="radio" name="poq26" value="3"> 3</label>
+      <label><input type="radio" name="poq26" value="4"> 4</label>
+      <label><input type="radio" name="poq26" value="5"> 5</label>
+    </div>
+  </div>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p style="margin-bottom: 8px;">3) In futuro, mi informerò e mi aggiornerò sui termini e sui concetti legati al tema della violenza di genere.</p>
+      <label><input type="radio" name="poq3" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq3" value="2"> 2</label>
+      <label><input type="radio" name="poq3" value="3"> 3</label>
+      <label><input type="radio" name="poq3" value="4"> 4</label>
+      <label><input type="radio" name="poq3" value="5"> 5</label>
     </div>
 
-    <div>
-      <p style="margin-bottom: 8px;">2)Le aspettative che potresti aver avuto sono state soddisfatte rispetto a ciò che pensavi avresti visto o imparato? (0-5)</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <label><input type="radio" name="poq2" value="0" required checked> 0</label>
-        <label><input type="radio" name="poq2" value="1"> 1</label>
-        <label><input type="radio" name="poq2" value="2"> 2</label>
-        <label><input type="radio" name="poq2" value="3"> 3</label>
-        <label><input type="radio" name="poq2" value="4"> 4</label>
-        <label><input type="radio" name="poq2" value="5"> 5</label>
-      </div>
-    </div>
-
-    <!-- BLOCCO 3 -->
-      <p style="font-weight: bold; margin-bottom: 5px;">3) Quanto senti di saperne ora grazie a tale percorso dei seguenti argomenti? (0-5)</p>
-    <div>
-    <p>VG (Violenza di Genere):</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq31" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq31" value="1"> 1</label>
-      <label><input type="radio" name="poq31" value="2"> 2</label>
-      <label><input type="radio" name="poq31" value="3"> 3</label>
-      <label><input type="radio" name="poq31" value="4"> 4</label>
-      <label><input type="radio" name="poq31" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>VG online/offline:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq32" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq32" value="1"> 1</label>
-      <label><input type="radio" name="poq32" value="2"> 2</label>
-      <label><input type="radio" name="poq32" value="3"> 3</label>
-      <label><input type="radio" name="poq32" value="4"> 4</label>
-      <label><input type="radio" name="poq32" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Identità di Genere:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq33" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq33" value="1"> 1</label>
-      <label><input type="radio" name="poq33" value="2"> 2</label>
-      <label><input type="radio" name="poq33" value="3"> 3</label>
-      <label><input type="radio" name="poq33" value="4"> 4</label>
-      <label><input type="radio" name="poq33" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Mascolinità:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq34" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq34" value="1"> 1</label>
-      <label><input type="radio" name="poq34" value="2"> 2</label>
-      <label><input type="radio" name="poq34" value="3"> 3</label>
-      <label><input type="radio" name="poq34" value="4"> 4</label>
-      <label><input type="radio" name="poq34" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Stereotipi:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq35" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq35" value="1"> 1</label>
-      <label><input type="radio" name="poq35" value="2"> 2</label>
-      <label><input type="radio" name="poq35" value="3"> 3</label>
-      <label><input type="radio" name="poq35" value="4"> 4</label>
-      <label><input type="radio" name="poq35" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Consenso:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq36" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq36" value="1"> 1</label>
-      <label><input type="radio" name="poq36" value="2"> 2</label>
-      <label><input type="radio" name="poq36" value="3"> 3</label>
-      <label><input type="radio" name="poq36" value="4"> 4</label>
-      <label><input type="radio" name="poq36" value="5"> 5</label>
-    </div>
-    </div>
-    
     <!-- BLOCCO 4 -->
-    <p style="margin-bottom: 8px;">4) Quanto senti di aver capito i seguenti concetti? (0=non se so nulla -> 5=so praticamente tutto)</p>
-    <div>
-      <p>Raising Awareness:</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <label><input type="radio" name="poq41" value="0" required checked> 0</label>
-        <label><input type="radio" name="poq41" value="1"> 1</label>
-        <label><input type="radio" name="poq41" value="2"> 2</label>
-        <label><input type="radio" name="poq41" value="3"> 3</label>
-        <label><input type="radio" name="poq41" value="4"> 4</label>
-        <label><input type="radio" name="poq41" value="5"> 5</label>
-      </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p style="font-weight: bold; margin-bottom: 5px;">4) In futuro, proverò empatia verso le vittime di violenza e cercherò di comprenderne le esperienze.</p>
+        <label><input type="radio" name="poq4" value="1" required checked> 1</label>
+        <label><input type="radio" name="poq4" value="2"> 2</label>
+        <label><input type="radio" name="poq4" value="3"> 3</label>
+        <label><input type="radio" name="poq4" value="4"> 4</label>
+        <label><input type="radio" name="poq4" value="5"> 5</label>
     </div>
     
-    <div>
-    <p>Empathy:</p>
+    <!-- BLOCCO 5 -->
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq42" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq42" value="1"> 1</label>
-      <label><input type="radio" name="poq42" value="2"> 2</label>
-      <label><input type="radio" name="poq42" value="3"> 3</label>
-      <label><input type="radio" name="poq42" value="4"> 4</label>
-      <label><input type="radio" name="poq42" value="5"> 5</label>
-    </div>
-    </div>
-    
-    <div>
-    <p>Action:</p>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <label><input type="radio" name="poq43" value="0" required checked> 0</label>
-      <label><input type="radio" name="poq43" value="1"> 1</label>
-      <label><input type="radio" name="poq43" value="2"> 2</label>
-      <label><input type="radio" name="poq43" value="3"> 3</label>
-      <label><input type="radio" name="poq43" value="4"> 4</label>
-      <label><input type="radio" name="poq43" value="5"> 5</label>
-    </div>
+      <p style="margin-bottom: 8px;">5) In futuro, parteciperò attivamente ad azioni di sensibilizzazione e contrasto.</p>
+      <label><input type="radio" name="poq5" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq5" value="2"> 2</label>
+      <label><input type="radio" name="poq5" value="3"> 3</label>
+      <label><input type="radio" name="poq5" value="4"> 4</label>
+      <label><input type="radio" name="poq5" value="5"> 5</label>
     </div>
 
-    <!-- DOMANDA 5 -->
-    <div>
-      <label for="q5" style="display: block; font-weight: bold; margin-bottom: 6px;">5) Come sono stati usati tali concetti nel percorso?</label>
-      <textarea name="poq5" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: vertical;" required></textarea>
-    </div>
-    
     <!-- DOMANDA 6 -->
-    <div>
-      <label for="q6" style="display: block; font-weight: bold; margin-bottom: 6px;">6)Altro? (facoltativo)</label>
-      <textarea name="poq6" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: vertical;"></textarea>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <p style="margin-bottom: 8px;">6) Penso che questa esperienza mi ha aiutatu ad imparare qualcosa di nuovo</p>
+      <label><input type="radio" name="poq6" value="1" required checked> 1</label>
+      <label><input type="radio" name="poq6" value="2"> 2</label>
+      <label><input type="radio" name="poq6" value="3"> 3</label>
+      <label><input type="radio" name="poq6" value="4"> 4</label>
+      <label><input type="radio" name="poq6" value="5"> 5</label>
     </div>
 
     <!-- BOTTONE -->
@@ -721,7 +641,7 @@ main {
   background-color: rgba(0,0,0,0.7); color: white; display: flex; align-items: center;
   justify-content: center; text-align: center; padding: 20px;">
   <div style="background: #222; padding: 20px; border-radius: 10px;">
-    <h3>Ben tornatu! <br> Premi il pulsante di questo popup per un nuovo suggerimento.</h3>
+    <h3>Ben tornatu! <br> Premi il pulsante "Ottieni Raccomandazione" per un nuovo suggerimento.</h3>
     <button onclick="document.getElementById('instructionOverlay').style.display='none'">Ok</button>
   </div>
 </div>
@@ -998,37 +918,46 @@ async function getSuggestion() {
       if (isRecommendedFirst) {
         // Raccomandato prima
         document.getElementById("result").innerHTML = `
+        <h2 style="color: red;">SCEGLI UNA TRA LE DUE ATTIVITA'</h2><br>
           <div class="result-box" id="box1">
             <strong>${jsonResponse.title_1}</strong>
-            <p>${jsonResponse.description_1 || ''}</p>
-            <p>${jsonResponse.reason_1}</p>
-            <button onclick="choose(1, '${jsonResponse.url_1}', '${jsonResponse.title_1}', '${jsonResponse.title_2}', true)">Avvia attività 1</button>
+            <p>Descrizione: ${jsonResponse.description_1}</p>
+            <p>Motivo: ${jsonResponse.reason_1}</p>
+            <button onclick="choose(1, '${jsonResponse.url_1}', '${jsonResponse.title_1}', '${jsonResponse.title_2}', true)">Avvia questa attività</button>
           </div>
+          <br>
+          <hr>
+          <br>
           <div class="result-box" id="box2">
             <strong>${jsonResponse.title_2}</strong>
-            <p>${jsonResponse.description_2 || ''}</p>
-            <p>${jsonResponse.reason_2}</p>
-            <button onclick="choose(2, '${jsonResponse.url_2}', '${jsonResponse.title_2}', '${jsonResponse.title_1}', false)">Avvia attività 2</button>
+            <p>Descrizione: ${jsonResponse.description_2}</p>
+            <p>Motivo: ${jsonResponse.reason_2}</p>
+            <button onclick="choose(2, '${jsonResponse.url_2}', '${jsonResponse.title_2}', '${jsonResponse.title_1}', false)">Avvia questa attività</button>
           </div>`;
       } else {
         // Non raccomandato prima
         document.getElementById("result").innerHTML = `
+        <h2 style="color: red;">SCEGLI UNA TRA LE DUE ATTIVITA'</h2><br>
           <div class="result-box" id="box1">
             <strong>${jsonResponse.title_2}</strong>
-            <p>${jsonResponse.description_2 || ''}</p>
-            <p>${jsonResponse.reason_2}</p>
-            <button onclick="choose(1, '${jsonResponse.url_2}', '${jsonResponse.title_2}', '${jsonResponse.title_1}', false)">Avvia attività 1</button>
+            <p>Descrizione: ${jsonResponse.description_2}</p>
+            <p>Motivo: ${jsonResponse.reason_2}</p>
+            <button onclick="choose(1, '${jsonResponse.url_2}', '${jsonResponse.title_2}', '${jsonResponse.title_1}', false)">Avvia questa attività</button>
           </div>
+          <br>
+          <hr>
+          <br>
           <div class="result-box" id="box2">
             <strong>${jsonResponse.title_1}</strong>
-            <p>${jsonResponse.description_1 || ''}</p>
-            <p>${jsonResponse.reason_1}</p>
-            <button onclick="choose(2, '${jsonResponse.url_1}', '${jsonResponse.title_1}', '${jsonResponse.title_2}', true)">Avvia attività 2</button>
+            <p>Descrizione: ${jsonResponse.description_1}</p>
+            <p>Motivo: ${jsonResponse.reason_1}</p>
+            <button onclick="choose(2, '${jsonResponse.url_1}', '${jsonResponse.title_1}', '${jsonResponse.title_2}', true)">Avvia questa attività</button>
           </div>`;
       }
     }
   } catch (err) {
     logTo("Errore:", err);
+    alert(err);
     document.getElementById("result").innerText = "Errore generico.";
   }
 }
@@ -1071,7 +1000,6 @@ function choose(which, url, activityTitleChosen, activityTitleNotChosen, isRecom
     threePopup();
     document.getElementById("result").innerHTML = '';
     blocked = false;
-  //} else if (clickCount == 3) {
   } else {
     setTimeout(() => {
       document.getElementById("postQuestionnaireOverlay").style.display = 'flex';
