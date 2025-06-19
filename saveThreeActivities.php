@@ -28,4 +28,4 @@ try {
 } catch (PDOException $e) {
   echo "Errore DB: " . $e->getMessage();
 }
-?>
+?>
